@@ -10,6 +10,7 @@ resource "github_repository" "lupka" {
 
   auto_init       = false
   has_issues      = true
+  has_projects    = true
   has_discussions = false
   has_wiki        = false
 
