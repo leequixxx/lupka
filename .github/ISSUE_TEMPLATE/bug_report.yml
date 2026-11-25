@@ -1,0 +1,68 @@
+name: Bug report
+description: Report reproducible incorrect behavior or broken documentation
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Do not use public issues for suspected security vulnerabilities; use the private security advisory link instead.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem and the actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Documentation
+        - Rust core
+        - macOS shell
+        - Windows shell
+        - OCR or coordinate conversion
+        - LLM provider or response parsing
+        - Backlog sink
+        - Preset registry
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Commit and environment
+      description: Include the commit or version, OS version, hardware, and relevant application context.
+      placeholder: "commit; macOS 26.2, M2; The Witcher 3 under CrossOver"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or screenshots
+      description: Use synthetic examples and redact API keys, private text, screenshots, and other sensitive data.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I have not included credentials, private screenshots, personal OCR output, or other sensitive data.
+          required: true

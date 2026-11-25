@@ -1,0 +1,60 @@
+name: Feature or design proposal
+description: Propose a product, architecture, or documentation improvement
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or maintenance problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the behavior or design you propose and why it fits Lupka.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and out of scope
+      description: Define what belongs to this issue and what must be handled separately.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List objective conditions that must be true for the issue to be considered complete.
+      placeholder: |
+        - [ ] First observable result
+        - [ ] Second observable result
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe other approaches and the tradeoffs between them.
+  - type: input
+    id: adr
+    attributes:
+      label: Related ADR
+      description: Link to an existing decision that would be clarified or superseded, if any.
+      placeholder: "docs/adr/0004-hit-testing-and-context.md"
+  - type: textarea
+    id: validation
+    attributes:
+      label: How could we validate the result?
+      description: Suggest observable behavior, test cases, or documentation checks.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Proposal check
+      options:
+        - label: I searched existing issues and relevant ADRs for duplicate proposals.
+          required: true

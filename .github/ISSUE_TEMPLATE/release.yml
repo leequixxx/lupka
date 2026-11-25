@@ -1,0 +1,64 @@
+name: Release
+description: Prepare, verify, and publish a semantic version release
+title: "[Release]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Follow RELEASING.md. Keep this issue open until the GitHub Release is published; use Refs rather than Closes in the release PR.
+  - type: input
+    id: version
+    attributes:
+      label: Target version
+      description: Use SemVer, including a prerelease suffix when applicable.
+      placeholder: "0.1.0 or 0.1.0-rc.1"
+    validations:
+      required: true
+  - type: textarea
+    id: included
+    attributes:
+      label: Included issues and scope
+      description: List the issues included in this release and any explicit exclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Platforms and artifacts
+      description: List the artifacts that CI must build and the platforms on which they must be verified.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Release acceptance criteria
+      description: List objective conditions for version metadata, packaging, signing, checksums, and release notes.
+      placeholder: |
+        - [ ] Project version and tag match
+        - [ ] Required checks pass
+        - [ ] Artifacts and checksums are attached to a draft release
+    validations:
+      required: true
+  - type: textarea
+    id: smoke
+    attributes:
+      label: Smoke-test procedure
+      description: Describe the exact manual verification required before publication.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Release-notes draft
+      description: Provide a reviewed draft or a list of squash commits from which to prepare it.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Release readiness
+      options:
+        - label: The target version follows RELEASING.md and all included implementation issues are merged.
+          required: true
+        - label: Required checks on main pass and no release-blocking issue remains open.
+          required: true
