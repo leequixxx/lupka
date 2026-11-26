@@ -10,13 +10,17 @@ Use English for all repository content and collaboration, including documentatio
 
 ## Repository state
 
-- The repository currently contains documentation, not an application implementation.
-- There is no package manifest, build command, test command, stable release, or installation path yet.
+- The repository contains an initial Rust workspace and macOS Swift package bootstrap. Lookup features are not implemented yet.
+- Canonical build, test, lint, and run commands are documented below. There is no stable release or installation path yet.
 - Keep `README.md` and other documentation honest about what exists. Do not describe designed behavior as implemented behavior.
-- When implementation tooling is introduced, update this file with the canonical build, test, lint, and run commands.
 
 Key files:
 
+- `Cargo.toml` — Rust workspace manifest.
+- `Makefile` — canonical development commands.
+- `crates/core/` — shared Rust core and uniffi contract.
+- `crates/uniffi-bindgen/` — pinned Swift binding generator.
+- `shells/macos/` — native macOS Swift package and FFI tests.
 - `README.md` — public project introduction.
 - `docs/spec.md` — product overview, principles, and ADR index.
 - `docs/adr/` — architecture decision records.
@@ -28,6 +32,19 @@ Key files:
 - `CODE_OF_CONDUCT.md` — community participation expectations.
 - `LICENSE` — MIT License.
 - `infra/github/` — OpenTofu configuration for repository and `main` branch settings.
+
+## Development commands
+
+Run commands from the repository root:
+
+- `make bindings` — build the Rust core and regenerate the committed macOS Swift bindings.
+- `make build` — build the Rust workspace and macOS Swift package.
+- `make test` — run Rust tests and the macOS Swift FFI test.
+- `make lint` — check Rust formatting and run Clippy with warnings denied.
+- `make run` — run the macOS bootstrap executable.
+- `make fmt` — format Rust sources.
+
+The current commands require a Rust toolchain and Apple Swift Command Line Tools on macOS; full Xcode is not required. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
 
 ## Development workflow
 
@@ -88,6 +105,6 @@ For documentation changes:
 
 For implementation changes:
 
-- Run the project’s standard build and test commands once they exist.
+- Run `make build`, `make test`, and `make lint`.
 - Exercise the relevant end-to-end behavior, not just imports or compilation.
 - Cover coordinate conversions, response parsing, configuration inheritance, deduplication, and process-resume safety with tests when those areas are implemented.
