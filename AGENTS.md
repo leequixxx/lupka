@@ -41,10 +41,12 @@ Run commands from the repository root:
 - `make build` — build the Rust workspace and macOS Swift package.
 - `make test` — run Rust tests and the macOS Swift FFI test.
 - `make lint` — check Rust formatting and run Clippy with warnings denied.
+- `make docs` — validate local Markdown links, ADR consistency, and issue-form YAML.
+- `make infra` — format-check, initialize, and validate the OpenTofu configuration without application secrets.
 - `make run` — run the macOS bootstrap executable.
 - `make fmt` — format Rust sources.
 
-The current commands require macOS 13 or newer, the stable Rust toolchain from `rust-toolchain.toml`, and Apple Swift Command Line Tools; full Xcode is not required. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
+The Rust and macOS commands require macOS 13 or newer, the stable Rust toolchain from `rust-toolchain.toml`, and Apple Swift Command Line Tools; full Xcode is not required. `make docs` requires Python 3 and Ruby. `make infra` requires OpenTofu 1.6 or newer. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
 
 ## Development workflow
 
@@ -99,6 +101,7 @@ Read the relevant ADR before changing an established decision, especially `docs/
 
 For documentation changes:
 
+- Run `make docs`.
 - Check that local Markdown links resolve.
 - Check contiguous ADR numbering, filename/title agreement, and exactly one index entry per ADR.
 - Check for stale references after renaming or removing files.

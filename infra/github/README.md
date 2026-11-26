@@ -6,6 +6,7 @@ This OpenTofu configuration manages the Lupka GitHub repository and `main` branc
 - automatic deletion of merged branches;
 - `main` as the default branch;
 - required pull requests and linear history;
+- required `Documentation`, `OpenTofu`, and `Rust and macOS` status checks;
 - up-to-date branches through strict status-check policy;
 - no force pushes or branch deletion;
 - enforcement for administrators.
@@ -69,7 +70,7 @@ Do not run a full apply before `main` exists; branch resources depend on it.
 
 ## Required status checks
 
-`required_status_checks` is empty while CI does not exist. Once required workflows are available, set their exact check names in `infra/github/variables.tf` or pass them with `-var`, review the plan, and apply.
+The required checks are `Documentation`, `OpenTofu`, and `Rust and macOS`. Their values in `infra/github/variables.tf` must exactly match the job names in `.github/workflows/ci.yml`. After changing CI, verify the names on a pull request, review the OpenTofu plan, and let a maintainer apply the reviewed configuration.
 
 ## Change workflow
 
