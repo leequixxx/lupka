@@ -46,7 +46,7 @@ Run commands from the repository root:
 - `make run` — run the macOS bootstrap executable.
 - `make fmt` — format Rust sources.
 
-The current commands require macOS 13 or newer, the stable Rust toolchain from `rust-toolchain.toml`, and Apple Swift Command Line Tools; full Xcode is not required. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
+The Rust and macOS commands require macOS 13 or newer, the stable Rust toolchain from `rust-toolchain.toml`, and Apple Swift Command Line Tools; full Xcode is not required. `make docs` requires Python 3 and Ruby. `make infra` requires OpenTofu 1.6 or newer. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
 
 ## Development workflow
 
