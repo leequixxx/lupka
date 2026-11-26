@@ -8,6 +8,7 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parent.parent
 EXCLUDED_DIRECTORIES = {".git", ".build", ".terraform", "target"}
 LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+REFERENCE_LINK_PATTERN = re.compile(r"^\s{0,3}\[([^\]]+)\]:\s*(.+?)\s*$", re.M)
 EXTERNAL_URL_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 
 
@@ -30,6 +31,14 @@ def destination(raw_destination):
     return value.split()[0]
 
 
+def link_destinations(text):
+    for match in LINK_PATTERN.finditer(text):
+        yield match.group(1)
+    for match in REFERENCE_LINK_PATTERN.finditer(text):
+        if not match.group(1).startswith("^"):
+            yield match.group(2)
+
+
 def heading_slug(heading):
     value = re.sub(r"[`*_~]", "", heading).strip().lower()
     value = re.sub(r"[^\w\- ]", "", value, flags=re.UNICODE)
@@ -42,8 +51,8 @@ def check_links(files):
     headings_by_file = {}
     for source in files:
         text = source.read_text(encoding="utf-8")
-        for match in LINK_PATTERN.finditer(text):
-            link = unquote(destination(match.group(1)))
+        for raw_destination in link_destinations(text):
+            link = unquote(destination(raw_destination))
             if not link or EXTERNAL_URL_PATTERN.match(link) or link.startswith("//"):
                 continue
             path_part, _, fragment = link.partition("#")
