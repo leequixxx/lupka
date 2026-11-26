@@ -41,6 +41,7 @@ Run commands from the repository root:
 - `make build` — build the Rust workspace and macOS Swift package.
 - `make test` — run Rust tests and the macOS Swift FFI test.
 - `make lint` — check Rust formatting and run Clippy with warnings denied.
+- `make docs` — validate local Markdown links, ADR consistency, and issue-form YAML.
 - `make run` — run the macOS bootstrap executable.
 - `make fmt` — format Rust sources.
 
@@ -99,6 +100,7 @@ Read the relevant ADR before changing an established decision, especially `docs/
 
 For documentation changes:
 
+- Run `make docs`.
 - Check that local Markdown links resolve.
 - Check contiguous ADR numbering, filename/title agreement, and exactly one index entry per ADR.
 - Check for stale references after renaming or removing files.

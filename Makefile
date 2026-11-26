@@ -1,4 +1,4 @@
-.PHONY: bindings build test run fmt lint
+.PHONY: bindings build test run fmt lint docs
 
 bindings:
 	./scripts/generate-macos-bindings.sh
@@ -20,3 +20,7 @@ fmt:
 lint:
 	cargo fmt --all --check
 	cargo clippy --workspace --all-targets -- -D warnings
+
+docs:
+	python3 scripts/check-docs.py
+	ruby scripts/check-issue-forms.rb
