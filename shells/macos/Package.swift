@@ -18,6 +18,7 @@ let package = Package(
         .executable(name: "lupka", targets: ["Lupka"]),
     ],
     dependencies: [
+        // Swift Testing 6.2.4; 6.3+ requires _TestingInterop, absent from Command Line Tools.
         .package(
             url: "https://github.com/swiftlang/swift-testing.git",
             revision: "5ee435b15ad40ec1f644b5eb9d247f263ccd2170"
