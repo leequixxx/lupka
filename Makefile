@@ -1,4 +1,4 @@
-.PHONY: bindings build test run fmt
+.PHONY: bindings build test run fmt lint
 
 bindings:
 	./scripts/generate-macos-bindings.sh
@@ -16,3 +16,7 @@ run: bindings
 
 fmt:
 	cargo fmt --all
+
+lint:
+	cargo fmt --all --check
+	cargo clippy --workspace --all-targets -- -D warnings
