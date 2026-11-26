@@ -1,0 +1,10 @@
+[workspace]
+members = ["crates/core", "crates/uniffi-bindgen"]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+
+[workspace.dependencies]
+uniffi = "=0.33.0"

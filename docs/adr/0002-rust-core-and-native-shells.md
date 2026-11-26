@@ -56,6 +56,7 @@ Keep the FFI boundary simple: flat data structures and strings, with no callback
 
 ## Consequences
 
+- The macOS shell targets macOS 13 or newer. Platform features with higher OS requirements remain optional and availability-checked.
 - Business logic has one implementation across platforms.
 - UI and system integration remain native.
 - The simple FFI boundary reduces exposure to uniffi and borrow checker footguns.

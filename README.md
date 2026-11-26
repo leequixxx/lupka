@@ -63,7 +63,7 @@ See [ADR-0002: Rust core and native shells](docs/adr/0002-rust-core-and-native-s
 
 ## Project status
 
-Early development. The repository currently contains product and architecture documentation; there is no stable release or installation path yet. Expect the design and implementation to change.
+Early development. The repository contains an initial Rust and macOS bootstrap, but the lookup flow is not implemented yet. There is no stable release or installation path. Expect the design and implementation to change.
 
 Feedback, issues, and pull requests are welcome. For architectural changes, start with the [ADR template](docs/adr/0000-template.md) rather than quietly rewriting the world.
 

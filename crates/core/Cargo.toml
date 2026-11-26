@@ -1,0 +1,12 @@
+[package]
+name = "lupka-core"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "lupka_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+uniffi.workspace = true

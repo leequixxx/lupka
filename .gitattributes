@@ -1,0 +1,3 @@
+# UniFFI output preserves upstream whitespace.
+shells/macos/Sources/LupkaCore/Generated/** whitespace=-trailing-space
+shells/macos/Sources/LupkaCoreFFI/** whitespace=-trailing-space

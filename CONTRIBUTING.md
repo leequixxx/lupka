@@ -4,7 +4,7 @@ Thanks for helping build Lupka. Contributions to code, documentation, architectu
 
 ## Before you start
 
-Lupka is at an early, documentation-first stage. The repository does not yet contain an application implementation, package manifest, build command, or test command. Keep this distinction in mind when reporting problems or proposing changes.
+Lupka is at an early implementation stage. The repository contains a Rust workspace and macOS Swift package bootstrap, but no working lookup flow, stable release, or installation path. Use the canonical development commands documented in `AGENTS.md`.
 
 - Search existing issues and pull requests before opening another one.
 - Read `docs/spec.md` and the ADRs relevant to your change.
@@ -93,7 +93,7 @@ Lupka uses semantic versioning and trunk-based releases from `main`. Follow `REL
 
 ## Code contributions
 
-Once implementation begins:
+For implementation changes:
 
 - Keep shared business logic in the Rust core and OS integration in native shells.
 - Preserve the small, flat uniffi boundary: data structures and strings, no callbacks or shared ownership.
