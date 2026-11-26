@@ -42,6 +42,7 @@ Run commands from the repository root:
 - `make test` — run Rust tests and the macOS Swift FFI test.
 - `make lint` — check Rust formatting and run Clippy with warnings denied.
 - `make docs` — validate local Markdown links, ADR consistency, and issue-form YAML.
+- `make infra` — format-check, initialize, and validate the OpenTofu configuration without application secrets.
 - `make run` — run the macOS bootstrap executable.
 - `make fmt` — format Rust sources.
 

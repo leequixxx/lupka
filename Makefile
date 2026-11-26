@@ -1,4 +1,4 @@
-.PHONY: bindings build test run fmt lint docs
+.PHONY: bindings build test run fmt lint docs infra
 
 bindings:
 	./scripts/generate-macos-bindings.sh
@@ -24,3 +24,8 @@ lint:
 docs:
 	python3 scripts/check-docs.py
 	ruby scripts/check-issue-forms.rb
+
+infra:
+	tofu -chdir=infra/github fmt -check
+	tofu -chdir=infra/github init -backend=false -input=false -lockfile=readonly
+	tofu -chdir=infra/github validate
