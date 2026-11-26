@@ -44,7 +44,7 @@ Run commands from the repository root:
 - `make run` — run the macOS bootstrap executable.
 - `make fmt` — format Rust sources.
 
-The current commands require a Rust toolchain and Apple Swift Command Line Tools on macOS; full Xcode is not required. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
+The current commands require macOS 13 or newer, the stable Rust toolchain from `rust-toolchain.toml`, and Apple Swift Command Line Tools; full Xcode is not required. Do not edit files in `shells/macos/Sources/LupkaCore/Generated/` or the generated files in `shells/macos/Sources/LupkaCoreFFI/` manually.
 
 ## Development workflow
 
