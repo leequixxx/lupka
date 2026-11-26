@@ -34,7 +34,7 @@ variable "visibility" {
 }
 
 variable "required_status_checks" {
-  description = "GitHub Actions check names required before merging into main. Empty until CI exists."
+  description = "GitHub Actions check names required before merging into main."
   type        = list(string)
-  default     = []
+  default     = ["Documentation", "OpenTofu", "Rust and macOS"]
 }
