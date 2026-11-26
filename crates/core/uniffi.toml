@@ -1,0 +1,5 @@
+[bindings.swift]
+module_name = "LupkaCore"
+ffi_module_name = "LupkaCoreFFI"
+ffi_module_filename = "LupkaCoreFFI"
+generate_immutable_records = true
