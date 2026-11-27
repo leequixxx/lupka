@@ -63,7 +63,13 @@ See [ADR-0002: Rust core and native shells](docs/adr/0002-rust-core-and-native-s
 
 ## Project status
 
-Early development. The repository contains an initial Rust and macOS bootstrap, but the lookup flow is not implemented yet. There is no stable release or installation path. Expect the design and implementation to change.
+Early development. The macOS shell can register **Control–Option–Space** and capture all available displays through ScreenCaptureKit on macOS 14 or later. OCR, translation, popups, and backlog saving are not implemented yet. There is no stable release or installation path. Expect the design and implementation to change.
+
+## Running the macOS bootstrap
+
+Run `make run`, then press **Control–Option–Space**. Lupka requests only Screen Recording permission for capture; the Carbon hotkey does not request Accessibility permission. If you start Lupka from a terminal, macOS attributes the permission to that terminal application. Enable it in **System Settings → Privacy & Security → Screen Recording** and restart Lupka after changing the setting.
+
+The current bootstrap logs metadata for each captured display and passes the multi-display frame set into the lookup coordinator. It does not save screenshots or perform OCR yet.
 
 Feedback, issues, and pull requests are welcome. For architectural changes, start with the [ADR template](docs/adr/0000-template.md) rather than quietly rewriting the world.
 

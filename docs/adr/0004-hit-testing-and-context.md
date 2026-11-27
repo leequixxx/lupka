@@ -39,9 +39,12 @@ Treat coordinate conversion as a dedicated, tested boundary:
 
 - AppKit: Y from the bottom, relative to the main display;
 - CG/ScreenCaptureKit: Y from the top;
-- Vision: normalized 0–1 coordinates, Y from the bottom.
+- Vision: normalized 0–1 coordinates, Y from the bottom;
+- Captured display image: pixel coordinates, Y from the top; its `displayFrame` locates it in global CG coordinates.
 
-Each conversion must be explicit, commented, and covered by tests. Pointer, click, and drag coordinates must be converted into the same captured-frame coordinate space before hit testing or cropping.
+The shell passes one full image per included display plus each display's global frame. No synthetic stitched screenshot is required. OCR boxes remain in local image pixels for hit testing and cropping. To join context across adjacent displays, convert those boxes into shared global CG coordinates before line joining.
+
+Each conversion must be explicit, commented, and covered by tests. Pointer, click, and drag coordinates must be converted into the corresponding display's image coordinates before hit testing or cropping. Cross-display context uses global CG coordinates rather than mixing local image origins or pixel scales.
 
 ## Consequences
 
