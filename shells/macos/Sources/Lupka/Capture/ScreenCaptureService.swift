@@ -1,4 +1,3 @@
-import AppKit
 import CoreGraphics
 import ScreenCaptureKit
 
@@ -6,7 +5,6 @@ enum ScreenCaptureError: LocalizedError {
     case permissionDenied
     case unsupportedOperatingSystem
     case displayNotFound
-    case pointerDisplayExcluded
 
     var errorDescription: String? {
         switch self {
@@ -15,9 +13,7 @@ enum ScreenCaptureError: LocalizedError {
         case .unsupportedOperatingSystem:
             "Screen capture requires macOS 14 or later because Lupka uses SCScreenshotManager."
         case .displayNotFound:
-            "Lupka could not match the pointer to a capturable display."
-        case .pointerDisplayExcluded:
-            "The display under the pointer is excluded from capture. Enable that display or move the pointer to an included display."
+            "Lupka could not find a display that was available when capture started."
         }
     }
 }
@@ -29,7 +25,7 @@ struct ScreenCapturePermission {
 
 @MainActor
 protocol ScreenCapturing {
-    func capture() async throws -> CapturedFrame
+    func capture() async throws -> [CapturedDisplayFrame]
 }
 
 @MainActor
@@ -45,27 +41,10 @@ final class ScreenCaptureService: ScreenCapturing {
         self.permission = permission
     }
 
-    func capture() async throws -> CapturedFrame {
+    func capture() async throws -> [CapturedDisplayFrame] {
         guard #available(macOS 14.0, *) else {
             throw ScreenCaptureError.unsupportedOperatingSystem
         }
-
-        let appKitPointer = NSEvent.mouseLocation
-        let screens = NSScreen.screens
-        guard let primaryScreen = screens.first,
-            let pointerScreen = screens.first(where: { $0.frame.contains(appKitPointer) }),
-            let displayID = pointerScreen.deviceDescription[
-                NSDeviceDescriptionKey("NSScreenNumber")
-            ] as? CGDirectDisplayID
-        else {
-            throw ScreenCaptureError.displayNotFound
-        }
-
-        // Preserve the hotkey-time pointer before permission prompts or asynchronous capture can change it.
-        let pointer = CaptureGeometry.coreGraphicsPoint(
-            fromAppKitPoint: appKitPointer,
-            primaryScreenHeight: primaryScreen.frame.height
-        )
         guard permission.preflight() || permission.request() else {
             throw ScreenCaptureError.permissionDenied
         }
@@ -74,27 +53,17 @@ final class ScreenCaptureService: ScreenCapturing {
             false,
             onScreenWindowsOnly: true
         )
-        guard content.displays.contains(where: { $0.displayID == displayID }) else {
-            throw ScreenCaptureError.displayNotFound
-        }
-        guard !configuration.excludedDisplayIDs.contains(displayID) else {
-            throw ScreenCaptureError.pointerDisplayExcluded
-        }
-
         let geometry = content.displays.map {
             DisplayGeometry(displayID: $0.displayID, displayFrame: $0.frame)
         }
-        let includedGeometry = CaptureGeometry.includedDisplays(
-            geometry,
-            configuration: configuration
-        )
+        let selectedGeometry = configuration.selectDisplays(geometry)
         let displaysByID = Dictionary(
             uniqueKeysWithValues: content.displays.map { ($0.displayID, $0) }
         )
         var capturedDisplays: [CapturedDisplayFrame] = []
-        capturedDisplays.reserveCapacity(includedGeometry.count)
+        capturedDisplays.reserveCapacity(selectedGeometry.count)
 
-        for displayGeometry in includedGeometry {
+        for displayGeometry in selectedGeometry {
             guard let display = displaysByID[displayGeometry.displayID] else {
                 throw ScreenCaptureError.displayNotFound
             }
@@ -111,11 +80,7 @@ final class ScreenCaptureService: ScreenCapturing {
             )
         }
 
-        return CapturedFrame(
-            displays: capturedDisplays,
-            pointer: pointer,
-            pointerDisplayID: displayID
-        )
+        return capturedDisplays
     }
 
     @available(macOS 14.0, *)

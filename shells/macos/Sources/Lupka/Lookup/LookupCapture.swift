@@ -1,28 +1,7 @@
-import AppKit
 import CoreGraphics
+import Foundation
 
-struct CaptureConfiguration: Equatable, Sendable {
-    static let `default` = CaptureConfiguration()
-
-    let excludedDisplayIDs: Set<CGDirectDisplayID>
-
-    init(excludedDisplayIDs: Set<CGDirectDisplayID> = []) {
-        self.excludedDisplayIDs = excludedDisplayIDs
-    }
-}
-
-struct DisplayGeometry: Equatable {
-    let displayID: CGDirectDisplayID
-    let displayFrame: CGRect
-}
-
-struct CapturedDisplayFrame {
-    let image: CGImage
-    let displayID: CGDirectDisplayID
-    let displayFrame: CGRect
-}
-
-struct CapturedFrame {
+struct LookupCapture {
     let displays: [CapturedDisplayFrame]
     let pointer: CGPoint
     let pointerDisplayID: CGDirectDisplayID
@@ -70,29 +49,10 @@ struct CapturedFrame {
     }
 }
 
-enum CaptureGeometry {
-    static func coreGraphicsPoint(
-        fromAppKitPoint point: NSPoint,
-        primaryScreenHeight: CGFloat
-    ) -> CGPoint {
-        // AppKit measures Y upward from the primary display; CG and ScreenCaptureKit measure it downward.
-        CGPoint(x: point.x, y: primaryScreenHeight - point.y)
-    }
+enum LookupCaptureError: LocalizedError {
+    case pointerDisplayNotCaptured
 
-    static func includedDisplays(
-        _ displays: [DisplayGeometry],
-        configuration: CaptureConfiguration
-    ) -> [DisplayGeometry] {
-        displays
-            .filter { !configuration.excludedDisplayIDs.contains($0.displayID) }
-            .sorted { first, second in
-                if first.displayFrame.minY != second.displayFrame.minY {
-                    return first.displayFrame.minY < second.displayFrame.minY
-                }
-                if first.displayFrame.minX != second.displayFrame.minX {
-                    return first.displayFrame.minX < second.displayFrame.minX
-                }
-                return first.displayID < second.displayID
-            }
+    var errorDescription: String? {
+        "The display under the pointer is not enabled for capture. Enable that display or move the pointer to an enabled display."
     }
 }
