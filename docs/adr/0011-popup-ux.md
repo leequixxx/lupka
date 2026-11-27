@@ -26,7 +26,7 @@ Image behavior depends on `imageCropMode`:
 - `region`: “＋ Add to backlog” opens the region selector before saving an image. Confirming the selection completes the save; “Save without image” bypasses it. “Select card image” can reopen the selector to adjust the region.
 - `off`: the popup saves without an image and does not show the image-selection action.
 
-The region-selection overlay uses the frame captured for the current lookup. The user drags a rectangle around the visual subject. If `imageAspectRatio` is set, the drag is constrained to that ratio; `null` allows a free-form rectangle.
+The region-selection overlay uses the multi-display frame set captured for the current lookup. The user drags a rectangle around the visual subject within the originating display's frame. If `imageAspectRatio` is set, the drag is constrained to that ratio; `null` allows a free-form rectangle.
 
 Cancelling selection returns to the popup without discarding the translation or changing the selected word. A confirmed manual region takes precedence over the automatic word crop.
 

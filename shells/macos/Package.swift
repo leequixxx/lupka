@@ -45,6 +45,14 @@ let package = Package(
             path: "Sources/Lupka"
         ),
         .testTarget(
+            name: "LupkaTests",
+            dependencies: [
+                "Lupka",
+                .product(name: "Testing", package: "swift-testing"),
+            ],
+            path: "Tests/LupkaTests"
+        ),
+        .testTarget(
             name: "LupkaCoreTests",
             dependencies: [
                 "LupkaCore",
