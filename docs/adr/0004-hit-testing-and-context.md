@@ -15,17 +15,17 @@ Configure target and context selection per window through `lookupMode`:
 
 | Mode | Target word | OCR context |
 |---|---|---|
-| `hover` | Current pointer position when the hotkey is pressed | Automatic capture around the pointer |
-| `point` | A word clicked on a dimmed captured frame | Automatic extraction around the clicked word |
+| `hover` | Current pointer position when the hotkey is pressed | All selected displays |
+| `point` | A word clicked on a dimmed captured display frame | Automatic extraction around the clicked word |
 | `region` | A word clicked inside a user-selected region | Restricted to the selected region |
 
 `hover` is the default and preserves the fastest flow.
 
-`point` captures and dims the current frame, then lets the user click a word. It is useful when the application has no visible system cursor or the pointer cannot remain over the word.
+`point` captures and dims the selected display frames, then lets the user click a word. It is useful when the application has no visible system cursor or the pointer cannot remain over the word.
 
 `region` adds a drag step before the click: the user selects the text area and then chooses the target word inside it. This excludes unrelated UI and other columns. The additional interaction is justified only for windows that need it.
 
-Manual modes use the same captured frame throughout selection. `pauseOnLookup` remains an independent setting; stop-frame behavior for games is defined in ADR-0014.
+Manual modes use the same multi-display frame set throughout selection. `pauseOnLookup` remains an independent setting; stop-frame behavior for games is defined in ADR-0014.
 
 ### Hit testing and context
 

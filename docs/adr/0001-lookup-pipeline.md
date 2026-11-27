@@ -18,7 +18,7 @@ hotkey → screenshot according to lookupMode → OCR → target word (hover / p
 → write through a sink (ADR-0012) + optional imagePath
 ```
 
-`lookupMode` controls target and context selection before OCR (ADR-0004). `imageCropMode` controls automatic, manual, or disabled image creation during the save flow (ADR-0011 and ADR-0012). Manual interactions reuse the original captured frame.
+`lookupMode` controls target and context selection before OCR (ADR-0004). `imageCropMode` controls automatic, manual, or disabled image creation during the save flow (ADR-0011 and ADR-0012). Manual interactions reuse the original multi-display frame set.
 
 The latency budget for the default `hover` mode is:
 

@@ -55,7 +55,7 @@ lemma :: translation 📷
 
 Configure image capture per window through `imageCropMode`:
 
-- `word` (default): use a square around the word box, with side = max(4× word width, 10× height, 260 px), constrained to the captured frame. The user can override it with a manual selection.
+- `word` (default): use a square around the word box, with side = max(4× word width, 10× height, 260 px), constrained to the originating display's captured frame. The user can override it with a manual selection.
 - `region`: the user selects the image rectangle before saving with an image. Saving without an image remains available.
 - `off`: do not create an image and leave `imagePath` empty.
 
@@ -64,7 +64,7 @@ Configure image capture per window through `imageCropMode`:
 Save images before invoking sinks:
 
 - treat a confirmed manual selection as authoritative for the current lookup, even when it does not contain the word;
-- pass the selected rectangle from the platform shell to the core, and crop the original captured frame rather than taking a new screenshot after the source application has changed;
+- pass the selected rectangle from the platform shell to the core, and crop the originating display's original captured frame rather than taking a new screenshot after the source application has changed;
 - write the resulting image to `<imagesDir>/<lemma>.png`, using a sanitized lemma as the filename;
 - pass the resulting `imagePath` to every sink.
 
